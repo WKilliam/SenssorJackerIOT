@@ -18,6 +18,10 @@
 #include <SPI.h>
 #include <RF24.h>
 
+#define pinVbr1 4
+#define pinVbr2 2
+#define pinVbr3 9
+
 #define pinCE   7             // On associe la broche "CE" du NRF24L01 à la sortie digitale D7 de l'arduino
 #define pinCSN  8             // On associe la broche "CSN" du NRF24L01 à la sortie digitale D8 de l'arduino
 #define tunnel  "PIPE1"       // On définit le "nom de tunnel" (5 caractères) à travers lequel on va recevoir les données de l'émetteur
@@ -33,6 +37,10 @@ void setup() {
   Serial.println("Récepteur NRF24L01");
   Serial.println("");
 
+  pinMode(pinVbr1, OUTPUT);
+  pinMode(pinVbr2, OUTPUT);
+  pinMode(pinVbr3, OUTPUT);
+
   // Partie NRF24
   radio.begin();                      // Initialisation du module NRF24
   radio.openReadingPipe(0, adresse);  // Ouverture du tunnel en LECTURE, avec le "nom" qu'on lui a donné
@@ -44,6 +52,32 @@ void loop() {
   // On vérifie à chaque boucle si un message est arrivé
   if (radio.available()) {
     radio.read(&message, sizeof(message));                        // Si un message vient d'arriver, on le charge dans la variable "message"
-    Serial.print("Message reçu : "); Serial.println(message);     // … et on l'affiche sur le port série !
+    Serial.print("Message reçu : "); 
+    String myString = String(message);
+    int valueToSend = myString.toInt();  
+    onVbr(valueToSend);
   }
+}
+
+void onVbr(int pin) {
+switch (pin) {
+  case 1:
+    digitalWrite(pinVbr1, HIGH);
+    delay(1500);
+    digitalWrite(pinVbr1, LOW);
+    break;
+  case 2:
+    digitalWrite(pinVbr2, HIGH);
+    delay(1500);
+    digitalWrite(pinVbr2, LOW);
+    break;
+  case 3:
+    digitalWrite(pinVbr3, HIGH);
+    delay(1500);
+    digitalWrite(pinVbr3, LOW);
+    break;
+  default:
+    Serial.print("Error test"); 
+    break;
+}    
 }

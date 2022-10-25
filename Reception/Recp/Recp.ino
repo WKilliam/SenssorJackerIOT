@@ -59,7 +59,7 @@ switch (pin) {
     delay(1500);
     digitalWrite(pinVbr2, LOW);
     break;
-  case 3:
+  case 2:
     digitalWrite(pinVbr3, HIGH);
     delay(1500);
     digitalWrite(pinVbr3, LOW);

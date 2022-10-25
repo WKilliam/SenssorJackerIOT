@@ -30,10 +30,19 @@ void loop() {
 }
 
 void message() {
-    if (inChar == '0') {
-        radio.write(&inChar, sizeof(inChar));
-    } else if (inChar == '1') {
-        radio.write(&inChar, sizeof(inChar));
+    switch (inChar) {
+        case 0:
+            radio.write(&inChar, sizeof(inChar));
+            break;
+        case 1:
+            radio.write(&inChar, sizeof(inChar));
+            break;
+        case 2:
+            radio.write(&inChar, sizeof(inChar));
+            break;
+        default:
+            Serial.print("Error test");
+            break;
     }
 }
 

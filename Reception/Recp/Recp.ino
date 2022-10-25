@@ -1,20 +1,3 @@
-/*
-   ______               _                  _///  _           _                   _
-  /   _  \             (_)                |  __\| |         | |                 (_)
-  |  [_|  |__  ___  ___ _  ___  _ __      | |__ | | ___  ___| |_ _ __ ___  _ __  _  ___  _   _  ___
-  |   ___/ _ \| __|| __| |/ _ \| '_ \_____|  __|| |/ _ \/  _|  _| '__/   \| '_ \| |/   \| | | |/ _ \
-  |  |  | ( ) |__ ||__ | | ( ) | | | |____| |__ | |  __/| (_| |_| | | (_) | | | | | (_) | |_| |  __/
-  \__|   \__,_|___||___|_|\___/|_| [_|    \____/|_|\___|\____\__\_|  \___/|_| |_|_|\__  |\__,_|\___|
-                                                                                      | |
-                                                                                      \_|
-  Fichier:      HelloWorldNRF24L01-Recepteur
-  Description:  Réception d'un message "Hello World" depuis un autre arduino nano, via un NRF24L01
-  Auteur:       Passion-Électronique
-
-  Librairie utilisée : https://github.com/nRF24/RF24
-
-  Créé le 19.03.2021
-*/
 #include <SPI.h>
 #include <RF24.h>
 
@@ -28,14 +11,11 @@
 
 RF24 radio(pinCE, pinCSN);    // Instanciation du NRF24L01
 
-const byte adresse[6] = tunnel;       // Mise au format "byte array" du nom du tunnel
-char message[32];                     // Avec cette librairie, on est "limité" à 32 caractères par message
+const byte adresse[6] = tunnel;       // Mise au format "byte array" du nom du tunnel                   // Avec cette librairie, on est "limité" à 32 caractères par message
 
 void setup() {
   // Initialisation du port série (pour afficher les infos reçues, sur le "Moniteur Série" de l'IDE Arduino)
   Serial.begin(9600);
-  Serial.println("Récepteur NRF24L01");
-  Serial.println("");
 
   pinMode(pinVbr1, OUTPUT);
   pinMode(pinVbr2, OUTPUT);
@@ -49,25 +29,32 @@ void setup() {
 }
 
 void loop() {
+
   // On vérifie à chaque boucle si un message est arrivé
-  if (radio.available()) {
-    radio.read(&message, sizeof(message));                        // Si un message vient d'arriver, on le charge dans la variable "message"
-    Serial.print("Message reçu : "); 
-    String myString = String(message);
-    int valueToSend = myString.toInt();  
+    //radio.read(&message, sizeof(message));                        // Si un message vient d'arriver, on le charge dans la variable "message"
+    //Serial.print("Message reçu : "); 
+    //String myString = String(message);
+    //int valueToSend = myString.toInt();  
+    //onVbr(valueToSend);
+
+   if (radio.available()) {
+    char valueReceived;
+    radio.read(&valueReceived, sizeof(valueReceived));                        // Si un message vient d'arriver, on le charge dans la variable "message"
+    Serial.print("Message reçu : "); Serial.println(valueReceived); 
+    String myString = String(valueReceived);
+    int valueToSend = myString.toInt(); 
     onVbr(valueToSend);
-    Serial.print(message);
   }
 }
 
 void onVbr(int pin) {
 switch (pin) {
-  case 1:
+  case 0:
     digitalWrite(pinVbr1, HIGH);
     delay(1500);
     digitalWrite(pinVbr1, LOW);
     break;
-  case 2:
+  case 1:
     digitalWrite(pinVbr2, HIGH);
     delay(1500);
     digitalWrite(pinVbr2, LOW);

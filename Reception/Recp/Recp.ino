@@ -56,6 +56,7 @@ void loop() {
     String myString = String(message);
     int valueToSend = myString.toInt();  
     onVbr(valueToSend);
+    Serial.print(message);
   }
 }
 
@@ -77,7 +78,7 @@ switch (pin) {
     digitalWrite(pinVbr3, LOW);
     break;
   default:
-    Serial.print("Error test"); 
+    Serial.print("Error test");
     break;
 }    
 }

@@ -24,15 +24,17 @@
 
 RF24 radio(pinCE, pinCSN);    // Instanciation du NRF24L01
 
+const char message[] = "Hello World !!!";
 const byte adresse[6] = tunnel;               // Mise au format "byte array" du nom du tunnel
-const char message[32];     // Message à transmettre à l'autre NRF24 (32 caractères maxi, avec cette librairie)
+//const char message[32];     // Message à transmettre à l'autre NRF24 (32 caractères maxi, avec cette librairie)
 
 void setup() {
     Serial.begin(9600);
   radio.begin();                      // Initialisation du module NRF24
   radio.openWritingPipe(adresse);     // Ouverture du tunnel en ÉCRITURE, avec le "nom" qu'on lui a donné
   radio.setPALevel(RF24_PA_MIN);      // Sélection d'un niveau "MINIMAL" pour communiquer (pas besoin d'une forte puissance, pour nos essais)
-  radio.stopListening();              // Arrêt dez l'écoute du NRF24 (signifiant qu'on va émettre, et non recevoir, ici)
+    radio.write(&message, sizeof(message));
+    radio.stopListening();              // Arrêt dez l'écoute du NRF24 (signifiant qu'on va émettre, et non recevoir, ici)
 }
 
 void loop() {

@@ -40,6 +40,21 @@ void message() {
         case 2:
             radio.write(&inChar, sizeof(inChar));
             break;
+        case 3:
+            radio.write(&inChar, sizeof(inChar));
+            break;
+        case 4:
+            radio.write(&inChar, sizeof(inChar));
+            break;
+        case 5:
+            radio.write(&inChar, sizeof(inChar));
+            break;
+        case 6:
+            radio.write(&inChar, sizeof(inChar));
+            break;
+        case 7:
+            radio.write(&inChar, sizeof(inChar));
+            break;
         default:
             Serial.print("Error test");
             break;

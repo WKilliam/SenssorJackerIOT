@@ -15,7 +15,7 @@
 //RF24 module
 #define pinCE   7             // On associe la broche "CE" du NRF24L01 à la sortie digitale D7 de l'arduino
 #define pinCSN  8             // On associe la broche "CSN" du NRF24L01 à la sortie digitale D8 de l'arduino
-#define tunnel  "PIPE1"       // On définit le "nom de tunnel" (5 caractères) à travers lequel on va recevoir les données de l'émetteur
+#define tunnel  "PIPE5"       // On définit le "nom de tunnel" (5 caractères) à travers lequel on va recevoir les données de l'émetteur
 
 RF24 radio(pinCE, pinCSN);    // Instanciation du NRF24L01
 
@@ -41,6 +41,7 @@ void setup() {
     radio.setPALevel(
             RF24_PA_MIN);      // Sélection d'un niveau "MINIMAL" pour communiquer (pas besoin d'une forte puissance, pour nos essais)
     radio.startListening();             // Démarrage de l'écoute du NRF24 (signifiant qu'on va recevoir, et non émettre quoi que ce soit, ici)
+    radio.setChannel(100);
 }
 
 void loop() {

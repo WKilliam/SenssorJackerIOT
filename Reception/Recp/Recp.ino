@@ -48,9 +48,7 @@ void loop() {
     if (radio.available()) {
         char valueReceived;
         radio.read(&valueReceived,
-                   sizeof(valueReceived));                        // Si un message vient d'arriver, on le charge dans la variable "message"
-        Serial.print("Message reçu : ");
-        Serial.println(valueReceived);
+                   sizeof(valueReceived));
         String myString = String(valueReceived);
         int valueToSend = myString.toInt();
         onVbr(valueToSend);
@@ -96,16 +94,12 @@ void onVbr(int pin) {
             digitalWrite(pinVbr5, LOW);
             break;
         case 6:
-            Serial.println(pin);
+            digitalWrite(pinPeltierCold, LOW);
             digitalWrite(pinFanHot, HIGH);
-            delay(5000);
-            digitalWrite(pinFanHot, LOW);
             break;
         case 7:
-            Serial.println(pin);
+            digitalWrite(pinFanHot, LOW);
             digitalWrite(pinPeltierCold, HIGH);
-            delay(5000);
-            digitalWrite(pinPeltierCold, LOW);
             break;
         default:
             Serial.print("Error test");

@@ -8,17 +8,16 @@
 RF24 radio(pinCE, pinCSN);    // Instanciation du NRF24L01
 const byte adresse[6] = tunnel;               // Mise au format "byte array" du nom du tunnel
 
-int inChar;
+char inChar;
 
 void setup() {
     Serial.begin(9600);
-
     radio.begin();                      // Initialisation du module NRF24
     radio.openWritingPipe(adresse);     // Ouverture du tunnel en ÉCRITURE, avec le "nom" qu'on lui a donné
     radio.setPALevel(
             RF24_PA_MIN);      // Sélection d'un niveau "MINIMAL" pour communiquer (pas besoin d'une forte puissance, pour nos essais)
     radio.stopListening();
-radio.setChannel(100);
+    radio.setChannel(100);
 }
 
 
@@ -27,37 +26,26 @@ void loop() {
         inChar = Serial.read();
         message();
     }
-
 }
 
 void message() {
-    switch (inChar) {
-        case 0:
-            radio.write(&inChar, sizeof(inChar));
-            break;
-        case 1:
-            radio.write(&inChar, sizeof(inChar));
-            break;
-        case 2:
-            radio.write(&inChar, sizeof(inChar));
-            break;
-        case 3:
-            radio.write(&inChar, sizeof(inChar));
-            break;
-        case 4:
-            radio.write(&inChar, sizeof(inChar));
-            break;
-        case 5:
-            radio.write(&inChar, sizeof(inChar));
-            break;
-        case 6:
-            radio.write(&inChar, sizeof(inChar));
-            break;
-        case 7:
-            radio.write(&inChar, sizeof(inChar));
-            break;
-        default:
-            Serial.print("Error test");
-            break;
+    if (inChar == '0') {
+        radio.write(&inChar, sizeof(inChar));
+    } else if (inChar == '1') {
+        radio.write(&inChar, sizeof(inChar));
+    } else if (inChar == '2') {
+        radio.write(&inChar, sizeof(inChar));
+    } else if (inChar == '3') {
+        radio.write(&inChar, sizeof(inChar));
+    } else if (inChar == '4') {
+        radio.write(&inChar, sizeof(inChar));
+    } else if (inChar == '5') {
+        radio.write(&inChar, sizeof(inChar));
+    } else if (inChar == '6') {
+        radio.write(&inChar, sizeof(inChar));
+    } else if (inChar == '7') {
+        radio.write(&inChar, sizeof(inChar));
+    } else {
+         Serial.print("Error test");
     }
 }

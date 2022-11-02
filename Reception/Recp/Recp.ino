@@ -9,8 +9,8 @@
 #define pinVbr5 5
 
 //Pumps
-#define pinPmp1 6
-#define pinPmp2 1
+#define pinFanHot 6
+#define pinPeltierCold 1
 
 //RF24 module
 #define pinCE   7             // On associe la broche "CE" du NRF24L01 à la sortie digitale D7 de l'arduino
@@ -32,8 +32,8 @@ void setup() {
     pinMode(pinVbr5, OUTPUT);
 
     //Pumps
-    pinMode(pinPmp1, OUTPUT);
-    pinMode(pinPmp2, OUTPUT);
+    pinMode(pinFanHot, OUTPUT);
+    pinMode(pinPeltierCold, OUTPUT);
 
     //NRF24
     radio.begin();                      // Initialisation du module NRF24
@@ -96,15 +96,15 @@ void onVbr(int pin) {
             break;
         case 6:
             Serial.println(pin);
-            digitalWrite(pinPmp1, HIGH);
+            digitalWrite(pinFanHot, HIGH);
             delay(5000);
-            digitalWrite(pinPmp1, LOW);
+            digitalWrite(pinFanHot, LOW);
             break;
         case 7:
             Serial.println(pin);
-            digitalWrite(pinPmp2, HIGH);
+            digitalWrite(pinPeltierCold, HIGH);
             delay(5000);
-            digitalWrite(pinPmp2, LOW);
+            digitalWrite(pinPeltierCold, LOW);
             break;
         default:
             Serial.print("Error test");

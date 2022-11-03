@@ -15,7 +15,7 @@
 //RF24 module
 #define pinCE   7             // On associe la broche "CE" du NRF24L01 à la sortie digitale D7 de l'arduino
 #define pinCSN  8             // On associe la broche "CSN" du NRF24L01 à la sortie digitale D8 de l'arduino
-#define tunnel  "PIPE5"       // On définit le "nom de tunnel" (5 caractères) à travers lequel on va recevoir les données de l'émetteur
+#define tunnel  "PIPE1"       // On définit le "nom de tunnel" (5 caractères) à travers lequel on va recevoir les données de l'émetteur
 
 RF24 radio(pinCE, pinCSN);    // Instanciation du NRF24L01
 
@@ -77,17 +77,11 @@ void onVbr(int pin) {
             break;
         case 3:
             Serial.println(pin);
-            digitalWrite(pinVbr3, HIGH);
-            delay(1500);
-            digitalWrite(pinVbr3, LOW);
-            break;
-        case 4:
-            Serial.println(pin);
             digitalWrite(pinVbr4, HIGH);
             delay(1500);
             digitalWrite(pinVbr4, LOW);
             break;
-        case 5:
+        case 4:
             Serial.println(pin);
             digitalWrite(pinVbr5, HIGH);
             delay(1500);
